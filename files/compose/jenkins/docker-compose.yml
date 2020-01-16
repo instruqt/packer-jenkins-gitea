@@ -8,7 +8,7 @@ services:
     - /var/run/docker.sock:/var/run/docker.sock
     links:
     - gitea
-    - mailhog
+    - artifactory
   gitea:
     image: gcr.io/instruqt/gitea:latest
     environment:
@@ -17,8 +17,10 @@ services:
       - ENABLE_ACCESS_LOG=true
     ports:
     - "3000:3000"
-  mailhog:
-    image: mailhog/mailhog:latest
+  artifactory:
+    image: docker.bintray.io/jfrog/artifactory-oss:latest
+    user: "${UID}:${GID}" # To fix file permissions
     ports:
-    - "1025:1025"
-    - "8025:8025"
+    - "8081:8081"
+    volumes:
+    - "/opt/docker-compose/jenkins/artifactory.config.import.yml:/opt/jfrog/artifactory/etc/artifactory.config.import.yml"
