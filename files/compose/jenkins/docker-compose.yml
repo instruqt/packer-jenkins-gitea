@@ -22,5 +22,6 @@ services:
     user: "${UID}:${GID}" # To fix file permissions
     ports:
     - "8081:8081"
+    - "8082:8082"
     volumes:
     - "/opt/docker-compose/jenkins/artifactory.config.import.yml:/opt/jfrog/artifactory/etc/artifactory.config.import.yml"
